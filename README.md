@@ -13,22 +13,36 @@ A lightweight web-based viewer for browsing MiMoCode sessions, tasks, and conver
 - **Message search** — Full-text conversation history with role indicators (user/assistant)
 - **Zero dependencies** — Runs on [Bun](https://bun.sh) with SQLite, no external services needed
 
-## Prerequisites
+## Installation
 
-- [Bun](https://bun.sh) runtime (v1.0+)
-- MiMoCode installed and used at least once (creates the database)
+### Option 1: Pre-built Binary (Recommended)
 
-## Quick Start
+Download the latest release for your platform from [Releases](https://github.com/YOUR_USERNAME/mimocode-viewer/releases):
+
+| Platform | File |
+|---|---|
+| Windows (x64) | `mimocode-viewer-win-x64.zip` |
+| macOS (Intel) | `mimocode-viewer-darwin-x64.tar.gz` |
+| macOS (Apple Silicon) | `mimocode-viewer-darwin-arm64.tar.gz` |
+| Linux (x64) | `mimocode-viewer-linux-x64.tar.gz` |
+| Linux (ARM64) | `mimocode-viewer-linux-arm64.tar.gz` |
 
 ```bash
-# Clone the repository
+# Example: macOS Apple Silicon
+tar -xzf mimocode-viewer-darwin-arm64.tar.gz
+./mimocode-viewer
+
+# Example: Windows
+# Extract the zip and run mimocode-viewer.exe
+```
+
+### Option 2: From Source
+
+Requires [Bun](https://bun.sh) v1.0+.
+
+```bash
 git clone https://github.com/YOUR_USERNAME/mimocode-viewer.git
 cd mimocode-viewer
-
-# Install dependencies (optional, Bun handles this automatically)
-bun install
-
-# Start the viewer
 bun run start
 ```
 

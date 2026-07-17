@@ -14,17 +14,38 @@ MiMoCode 会话查看器 — 一个轻量级的 Web 界面，用于浏览 MiMoCo
 
 ## 环境要求
 
-- [Bun](https://bun.sh) 运行时 (v1.0+)
 - MiMoCode 已安装并至少使用过一次
 
-## 快速开始
+## 安装方式
+
+### 方式一：下载预编译版本（推荐）
+
+从 [Releases](https://github.com/YOUR_USERNAME/mimocode-viewer/releases) 下载对应平台的文件：
+
+| 平台 | 文件 |
+|---|---|
+| Windows (x64) | `mimocode-viewer-win-x64.zip` |
+| macOS (Intel) | `mimocode-viewer-darwin-x64.tar.gz` |
+| macOS (Apple Silicon) | `mimocode-viewer-darwin-arm64.tar.gz` |
+| Linux (x64) | `mimocode-viewer-linux-x64.tar.gz` |
+| Linux (ARM64) | `mimocode-viewer-linux-arm64.tar.gz` |
 
 ```bash
-# 克隆项目
+# 示例：macOS Apple Silicon
+tar -xzf mimocode-viewer-darwin-arm64.tar.gz
+./mimocode-viewer
+
+# 示例：Windows
+# 解压 zip 文件后运行 mimocode-viewer.exe
+```
+
+### 方式二：从源码构建
+
+需要 [Bun](https://bun.sh) v1.0+。
+
+```bash
 git clone https://github.com/YOUR_USERNAME/mimocode-viewer.git
 cd mimocode-viewer
-
-# 启动
 bun run start
 ```
 
