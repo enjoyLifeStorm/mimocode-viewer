@@ -1,0 +1,16 @@
+{
+  "name": "mimocode-viewer",
+  "version": "0.1.0",
+  "description": "Web-based viewer for MiMoCode sessions, tasks, and projects",
+  "type": "module",
+  "scripts": {
+    "dev": "bun run --watch src/server.ts",
+    "start": "bun run src/server.ts"
+  },
+  "keywords": ["mimocode", "mimo", "viewer", "session", "task", "bun"],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/bun": "latest"
+  }
+}
