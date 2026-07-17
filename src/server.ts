@@ -184,8 +184,13 @@ const server = Bun.serve({
 
     // --- Frontend ---
     if (url.pathname === "/marked.min.js") {
-      const file = Bun.file(join(import.meta.dir, "marked.min.js"));
+      const file = Bun.file(join(import.meta.dir, "..", "marked.min.js"));
       return new Response(file, { headers: { "Content-Type": "application/javascript" } });
+    }
+
+    // Favicon - return empty to avoid 404 noise
+    if (url.pathname === "/favicon.ico") {
+      return new Response(null, { status: 204 });
     }
 
     if (url.pathname === "/" || url.pathname === "/index.html") {
