@@ -2,7 +2,7 @@
 
 A lightweight web-based viewer for browsing MiMoCode sessions, tasks, and conversation history.
 
-[English](#features) · [中文](#中文说明)
+[English](README.md) · [中文](README.zh-CN.md)
 
 ## Features
 
@@ -96,57 +96,3 @@ Directory (working folder)
 ## License
 
 MIT
-
----
-
-## 中文说明
-
-### 简介
-
-MiMoCode Viewer 是一个轻量级的 Web 浏览器，用于查看 MiMoCode 的会话记录、任务跟踪和对话历史。
-
-### 功能特性
-
-- **目录树导航** — 按工作目录分组展示会话，清晰直观
-- **Markdown 渲染** — 对话内容支持代码块、表格、列表等格式化显示
-- **Thinking 开关** — 一键显示/隐藏 AI 推理过程
-- **任务状态** — 查看每个会话中的任务进度（完成/进行中/未开始）
-- **对话历史** — 完整的用户/AI 对话记录
-
-### 快速开始
-
-```bash
-# 1. 确保已安装 Bun
-curl -fsSL https://bun.sh/install | bash
-
-# 2. 克隆项目
-git clone https://github.com/enjoyLifeStorm/mimocode-viewer.git
-cd mimocode-viewer
-
-# 3. 启动
-bun run start
-```
-
-浏览器访问 http://localhost:3456
-
-### 配置项
-
-| 环境变量 | 默认值 | 说明 |
-|---|---|---|
-| `PORT` | `3456` | 服务端口 |
-| `MIMOCODE_DB` | `~/.local/share/mimocode/mimocode.db` | MiMoCode 数据库路径 |
-
-### 常见问题
-
-**Q: 数据库文件在哪里？**
-
-- macOS/Linux: `~/.local/share/mimocode/mimocode.db`
-- Windows: `%LOCALAPPDATA%\mimocode\mimocode.db`
-
-**Q: 可以同时查看多个项目吗？**
-
-可以。所有项目目录下的会话都会按目录分组显示在左侧树形菜单中。
-
-**Q: 支持只读模式吗？**
-
-默认就是只读模式，不会修改任何数据。
