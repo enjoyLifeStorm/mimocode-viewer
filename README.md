@@ -17,7 +17,7 @@ A lightweight web-based viewer for browsing MiMoCode sessions, tasks, and conver
 
 ### Option 1: Pre-built Binary (Recommended)
 
-Download the latest release for your platform from [Releases](https://github.com/YOUR_USERNAME/mimocode-viewer/releases):
+Download the latest release for your platform from [Releases](https://github.com/enjoyLifeStorm/mimocode-viewer/releases):
 
 | Platform | File |
 |---|---|
@@ -41,7 +41,7 @@ tar -xzf mimocode-viewer-darwin-arm64.tar.gz
 Requires [Bun](https://bun.sh) v1.0+.
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/mimocode-viewer.git
+git clone https://github.com/enjoyLifeStorm/mimocode-viewer.git
 cd mimocode-viewer
 bun run start
 ```
@@ -120,7 +120,7 @@ MiMoCode Viewer 是一个轻量级的 Web 浏览器，用于查看 MiMoCode 的�
 curl -fsSL https://bun.sh/install | bash
 
 # 2. 克隆项目
-git clone https://github.com/YOUR_USERNAME/mimocode-viewer.git
+git clone https://github.com/enjoyLifeStorm/mimocode-viewer.git
 cd mimocode-viewer
 
 # 3. 启动

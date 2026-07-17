@@ -20,7 +20,7 @@ MiMoCode 会话查看器 — 一个轻量级的 Web 界面，用于浏览 MiMoCo
 
 ### 方式一：下载预编译版本（推荐）
 
-从 [Releases](https://github.com/YOUR_USERNAME/mimocode-viewer/releases) 下载对应平台的文件：
+从 [Releases](https://github.com/enjoyLifeStorm/mimocode-viewer/releases) 下载对应平台的文件：
 
 | 平台 | 文件 |
 |---|---|
@@ -44,7 +44,7 @@ tar -xzf mimocode-viewer-darwin-arm64.tar.gz
 需要 [Bun](https://bun.sh) v1.0+。
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/mimocode-viewer.git
+git clone https://github.com/enjoyLifeStorm/mimocode-viewer.git
 cd mimocode-viewer
 bun run start
 ```
