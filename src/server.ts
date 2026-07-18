@@ -184,7 +184,7 @@ const server = Bun.serve({
 
     // --- Frontend ---
     if (url.pathname === "/marked.min.js") {
-      const file = Bun.file(join(import.meta.dir, "marked.min.js"));
+      const file = Bun.file(join(import.meta.dir, "..", "marked.min.js"));
       return new Response(file, { headers: { "Content-Type": "application/javascript" } });
     }
 
