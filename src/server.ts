@@ -184,7 +184,7 @@ const server = Bun.serve({
 
     // --- Frontend ---
     if (url.pathname === "/marked.min.js") {
-      const file = Bun.file(join(import.meta.dir, "..", "marked.min.js"));
+      const file = Bun.file(join(import.meta.dir, "marked.min.js"));
       return new Response(file, { headers: { "Content-Type": "application/javascript" } });
     }
 
@@ -245,6 +245,11 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-seri
 .sess-meta{font-size:10px;color:#484f58;white-space:nowrap;flex-shrink:0}
 .sess-tasks{padding-left:20px;display:none}
 .sess-tasks.open{display:block}
+.sess-detail{display:none;padding:4px 10px 8px 22px;font-size:11px;color:#8b949e;border-left:2px solid transparent;margin:0 4px}
+.sess-detail.open{display:block}
+.sess-detail .sd-row{display:flex;gap:8px;margin-bottom:2px}
+.sess-detail .sd-label{color:#484f58;min-width:60px}
+.sess-detail .sd-val{color:#79c0ff;font-family:monospace;font-size:10px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .task-node{display:flex;align-items:center;gap:6px;padding:2px 10px;font-size:11px;color:#8b949e}
 .badge{display:inline-block;padding:1px 5px;border-radius:6px;font-size:9px;font-weight:600}
 .badge-done{background:#1b4332;color:#40c057}
@@ -363,12 +368,17 @@ function renderTree(){
     for(const s of d.sessions){
       const isActive=s.id===activeSessionId;
       const hasTasks=s.tasks&&s.tasks.length>0;
-      html+='<div class="sess">';
+      html+='<div class="sess" id="sess-'+s.id+'">';
       html+='<div class="sess-head'+(isActive?' active':'')+'" onclick="selectSession(\\''+s.id+'\\',\\''+did+'\\')">';
       html+='<span class="sess-title">'+escHtml(trunc(s.title||'(no title)',48))+'</span>';
       html+='<span class="sess-meta">'+fmtTime(s.time_updated)+' · '+s.msg_count+'m</span></div>';
+      html+='<div class="sess-detail'+(isActive?' open':'')+'" id="detail-'+s.id+'">';
+      html+='<div class="sd-row"><span class="sd-label">Created</span><span class="sd-val">'+fmtTimeFull(s.time_created)+'</span></div>';
+      html+='<div class="sd-row"><span class="sd-label">Updated</span><span class="sd-val">'+fmtTimeFull(s.time_updated)+'</span></div>';
+      html+='<div class="sd-row"><span class="sd-label">Messages</span><span class="sd-val">'+s.msg_count+'</span></div>';
+      html+='</div>';
       if(hasTasks){
-        html+='<div class="sess-tasks">';
+        html+='<div class="sess-tasks'+(isActive?' open':'')+'">';
         for(const t of s.tasks){
           const tc=t.status==='done'?'badge-done':t.status==='open'?'badge-open':'badge-progress';
           html+='<div class="task-node"><span class="badge '+tc+'">'+t.status+'</span>'+t.id+': '+escHtml(trunc(t.summary,50))+'</div>';
@@ -390,22 +400,39 @@ function toggleProj(did){
 }
 
 async function selectSession(id,projId){
-  activeSessionId=id;
-  document.querySelectorAll('.sess-head').forEach(h=>h.classList.remove('active'));
-  // Find and activate the correct sess-head
-  const proj=document.getElementById(projId);
-  if(proj){
-    const heads=proj.querySelectorAll('.sess-head');
-    for(const h of heads){
-      if(h.getAttribute('onclick')&&h.getAttribute('onclick').includes(id)){
-        h.classList.add('active');
-        // Toggle task visibility
-        const sess=h.parentElement;
-        const tasks=sess.querySelector('.sess-tasks');
-        if(tasks)tasks.classList.toggle('open');
-        break;
-      }
+  // If clicking the same session, toggle its detail panel
+  if(activeSessionId===id){
+    const detail=document.getElementById('detail-'+id);
+    const sess=document.getElementById('sess-'+id);
+    if(detail)detail.classList.toggle('open');
+    if(sess){
+      const tasks=sess.querySelector('.sess-tasks');
+      if(tasks)tasks.classList.toggle('open');
     }
+    return;
+  }
+
+  // Close previous session's detail
+  if(activeSessionId){
+    const prevDetail=document.getElementById('detail-'+activeSessionId);
+    const prevSess=document.getElementById('sess-'+activeSessionId);
+    if(prevDetail)prevDetail.classList.remove('open');
+    if(prevSess){
+      prevSess.querySelector('.sess-head')?.classList.remove('active');
+      const prevTasks=prevSess.querySelector('.sess-tasks');
+      if(prevTasks)prevTasks.classList.remove('open');
+    }
+  }
+
+  activeSessionId=id;
+  // Open new session's detail
+  const detail=document.getElementById('detail-'+id);
+  const sess=document.getElementById('sess-'+id);
+  if(detail)detail.classList.add('open');
+  if(sess){
+    sess.querySelector('.sess-head')?.classList.add('active');
+    const tasks=sess.querySelector('.sess-tasks');
+    if(tasks)tasks.classList.add('open');
   }
 
   const panel=document.getElementById('rightPanel');
