@@ -219,10 +219,16 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-seri
 .topbar .filters input,.topbar .filters select{background:#0d1117;border:1px solid #30363d;color:#e1e4e8;padding:4px 8px;border-radius:4px;font-size:12px}
 .topbar .filters input{width:160px}
 .topbar .filters label{color:#8b949e;font-size:12px}
-.main{display:flex;flex:1;overflow:hidden}
+.main{display:flex;flex:1;overflow:hidden;position:relative}
+
+/* sidebar toggle */
+.sidebar-toggle{position:absolute;left:0;top:50%;transform:translateY(-50%);z-index:10;background:#161b22;border:1px solid #30363d;border-left:none;color:#8b949e;width:20px;height:48px;display:flex;align-items:center;justify-content:center;cursor:pointer;border-radius:0 6px 6px 0;font-size:12px;transition:all .2s}
+.sidebar-toggle:hover{background:#21262d;color:#e1e4e8}
+.sidebar-toggle.collapsed{left:0}
 
 /* left tree panel */
-.left{width:420px;min-width:300px;border-right:1px solid #30363d;display:flex;flex-direction:column;overflow:hidden}
+.left{width:420px;min-width:300px;border-right:1px solid #30363d;display:flex;flex-direction:column;overflow:hidden;transition:width .2s,margin .2s}
+.left.collapsed{width:0;margin-left:-1px;border-right:none}
 .left-header{padding:8px 12px;border-bottom:1px solid #21262d;color:#8b949e;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;flex-shrink:0}
 .tree{flex:1;overflow-y:auto;scrollbar-width:thin;scrollbar-color:#30363d transparent;padding:4px 0}
 /* project node */
@@ -324,10 +330,11 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-seri
 </div>
 
 <div class="main">
-  <div class="left">
+  <div class="left" id="leftPanel">
     <div class="left-header">Projects / Sessions</div>
     <div class="tree" id="treeContainer"><div class="loading">Loading...</div></div>
   </div>
+  <div class="sidebar-toggle" id="sidebarToggle" onclick="toggleSidebar()" title="Toggle sidebar">&#9664;</div>
   <div class="right" id="rightPanel">
     <div class="right-empty">
       <div>Select a session from the tree</div>
@@ -337,12 +344,20 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-seri
 </div>
 
 <script>
-let activeSessionId=null, showThinking=false, treeData=[];
+let activeSessionId=null, showThinking=false, treeData=[], sidebarOpen=true;
 
 function fmtTime(ms){if(!ms)return'-';return new Date(ms).toLocaleString('zh-CN',{timeZone:'Asia/Shanghai',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit'})}
 function fmtTimeFull(ms){if(!ms)return'-';return new Date(ms).toLocaleString('zh-CN',{timeZone:'Asia/Shanghai'})}
 function trunc(s,n){return s&&s.length>n?s.slice(0,n)+'...':s||''}
 function escHtml(s){return s?s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'):''}
+
+function toggleSidebar(){
+  sidebarOpen=!sidebarOpen;
+  document.getElementById('leftPanel').classList.toggle('collapsed',!sidebarOpen);
+  const btn=document.getElementById('sidebarToggle');
+  btn.innerHTML=sidebarOpen?'&#9664;':'&#9654;';
+  btn.title=sidebarOpen?'Collapse sidebar':'Expand sidebar';
+}
 
 async function loadTree(){
   const days=document.getElementById('daysFilter').value;
